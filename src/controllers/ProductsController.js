@@ -6,7 +6,7 @@ class ProductsController {
       const allProducts = await database.Products.findAll();
       return res.status(200).json(allProducts);
     } catch (err) {
-      return res.status(500).json(err.message);
+      return res.status(500).send.json(err.message);
     }
   }
 
@@ -18,7 +18,7 @@ class ProductsController {
       });
       return res.status(200).json(oneProduct);
     } catch (err) {
-      return res.status(500).json(err.message);
+      if (!id) return res.status(404).json({ message: err.message });
     }
   }
 
@@ -32,7 +32,7 @@ class ProductsController {
     }
   }
 
-  static async putProduct(req, res) {
+  static async putAndPatchProduct(req, res) {
     const { id } = req.params;
     const updateProduct = req.body;
     try {
@@ -51,10 +51,15 @@ class ProductsController {
   static async deleteProducts(req, res) {
     const { id } = req.params;
     try {
-      await database.Products.destroy({where: { id: Number(id) }});
-      return res.status(200).json({message: `Product ${id} was successfully deleted`});
+      const result = await database.Products.destroy({
+        where: { id: Number(id) },
+      });
+      if (result === 0) throw Error(JSON.stringify({ message: "Invalid ID" }));
+      return res
+        .status(200)
+        .json({ message: `Product ${id} was successfully deleted` });
     } catch (err) {
-      return res.status(500).json(err.message);
+      return res.status(404).json({ message: err.message });
     }
   }
 }
