@@ -5,7 +5,13 @@ const routes = require('./routes/router')
 
 app.use(cors());
 app.use(express.json())
-app.listen(3000, () => console.log("Server is running on port 3000"))
+app.listen(3000, () => {
+    try {
+        console.log("Server is running on port 9000")
+    } catch (e) {
+        console.log(e.message)
+    }
+})
 
 routes(app)
 
