@@ -4,11 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./src/app.js",
+    "start": "npm ./src/app.js",
     "seed": "npx sequelize-cli db:seed:all",
     "seeders": "npx sequelize-cli seed:generate --name demo-product",
     "migrate": "npx sequelize-cli db:migrate",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest --reporters default jest-stare --coverage --detectOpenHandles --runInBand --testTimeout=60000",
+    "test:watch": "jest --verbose --watchAll"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
     "pg": "^8.7.1",
@@ -27,6 +29,10 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.14"
+    "jest": "^27.3.1",
+    "jest-serial-runner": "^1.2.0",
+    "jest-stare": "^2.3.0",
+    "nodemon": "^2.0.14",
+    "supertest": "^6.1.6"
   }
 }
