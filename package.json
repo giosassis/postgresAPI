@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm ./src/app.js",
+    "start": "nodemon ./src/app.js",
     "seed": "npx sequelize-cli db:seed:all",
     "seeders": "npx sequelize-cli seed:generate --name demo-product",
     "migrate": "npx sequelize-cli db:migrate",
