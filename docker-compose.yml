@@ -9,6 +9,8 @@ services:
       - '8080:3000'
     networks:
       - backend
+    links:
+      - 'db:db.net'
   db:
     image: postgres
     restart: always
