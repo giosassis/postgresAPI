@@ -3,7 +3,7 @@ services:
   api:
     image: node
     container_name: apiecommerce
-    working_dir: .
+    build: .
     command: npm start
     ports:
       - '8080:3000'
